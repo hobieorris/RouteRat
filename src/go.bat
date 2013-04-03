@@ -1,0 +1,1 @@
+cfx run  --profiledir "C:\Documents and Settings\orriswi\Application Data\Mozilla\Firefox\Profiles\addonsdk"

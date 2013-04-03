@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="charset" content="UTF-8" />
+	<meta name="description" content="Route Rat is a Firefox browser extension that will save a route plotted on a Google Maps map to a Garmin GPS device." />
+	<meta name="keywords" content="Firefox map route save Garmin GPS rat" />
+	<meta name="copyright" content="Copyright  2013 Hobie Orris" />
+	<meta name="author" content="Hobie Orris" />
+	<meta name="robots" content="index, nofollow" />
+	<meta name="googlebot" content="index, nofollow" />
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<link rel="stylesheet" href="css/rat.css" type="text/css" />
+	<link rel="stylesheet" href="css/msgBoxLight.css" type="text/css" />
+	<link rel="stylesheet" href="css/reveal.css">	
+	<link rel="shortcut icon" href="favicon.ico" >
+	<link rel="icon" type="image/gif" href="animated_favicon1.gif" >
+	<title>Route Rat &ndash; The Google Maps Route Saver</title>
+</head>
+<body>
+<div class="formtitle">
+<img src="Images/icon.png" border="0" style="vertical-align:middle;margin-left:30px">&nbsp;&nbsp;Route Rat &ndash; The Google Maps Route Saver
+<span class="formhelp" title="feedback">by <a class="open" href="">Hobie Orris</a></span></div>
+<div class="wrapper">
+<h2>Welcome to Route Rat!</h2>
+<p>
+<b>Route Rat</b> is a free extension for the <b>Mozilla Firefox</b> browser that allows you to easily save a route you have plotted on a <b>Google Maps</b>
+map to your connected <b>Garmin GPS</b> device.  That's all it does! No features, settings, configuration options or other unpleasantness!
+</p>
+<h3>How You Use It</h3>
+<p>
+Once installed, use <b>Firefox</b> to go to <b>Google Maps</b> and plot out a route manually, or by using the Get Directions feature.
+You can add as many additional destinations as you like and drag the route line around according to your preference.  Then, select the
+<b>Route Rat</b> menu item from <b>Firefox's</b> Tools menu.  The <b>Route Rat</b> web page will open with your route data present.  Simply
+connect your GPS, and when <b>Route Rat</b> recognizes it, type in the name you would like to call the route and click the Save button.
+You can then disconnect your GPS, import the route using the <b>Garmin</b> Tools menu and you are ready to go.
+<h3>Installation</h3>
+<h4>Before You Begin</h4>
+<p>
+First, in order to use <b>Route Rat</b>, you must first own a <b>Garmin GPS</b> model that allows the owner to import custom routes.
+To determine if your GPS is capable, consult <a href="http://developer.garmin.com/web-device/garmin-communicator-plugin/device-support-matrix" target="_blank" id="support">this chart</a>
+and look for an <b>X</b> next to your model under the ROUTES column. If you don't know your model number, you can go to the
+<a href="http://www8.garmin.com/products/webupdater/howtoinstall.jsp" target="_blank">Garmin WebUpdater</a> to find out.
+</p>
+<p>
+Second, you must be using the <b>Firefox</b> browser on a computer running <b>Windows</b> or <b>Mac OS 10.5</b> or later.  <b>Firefox</b> must also have the 
+free <b>Garmin Communicator</b> plugin installed in the browser, which you may get <a href="http://software.garmin.com/en-US/gcp.html" target="_blank" id="plugin">here</a> or 
+from the Add-Ons Manager (Tools <span style="font-size:120%">&rarr;</span> Add-ons menu) in <b>Firefox</b>. 
+</p>
+<h4>Installing Route Rat</h4>
+<p>
+Finally, you will have to install the <b>Route Rat</b> extension in <b>Firefox</b>.  It will soon be available directly from the creators of <b>Firefox</b> via the the Add-ons
+Manager, but meanwhile, it can be installed by clicking on the button below.
+</p>
+</div>
+<div style="width: 200px;margin: 50px auto;">
+	<button id="download_button" class="activebutton" onclick="window.location.href='routerat.xpi'">Install Route Rat</button>
+</div>
+<div style="clear:both"></div>
+<div class="wrapper">
+<p>
+To install from here, you must save the file to a known location.  Then, from the File menu in <b>Firefox</b>, open the file.  <b>Firefox</b> will prompt you to install the extension, so click on the Install button.
+</p>
+<p>
+After installation, go to the Tools <span style="font-size:120%">&rarr;</span> Add-ons menu and show the Extensions list.  It should show both <b>Garmin Communicator</b> and <b>Route Rat</b> similar to below
+</p>
+<p>
+<img src="Images/addons.jpg"></img>
+</p>
+<p>
+Under the Tools menu, you will find a new menu item, <b>Route Rat</b>.  
+</p>
+<p>
+<img src="Images/menu.jpg"></img>
+</p>
+<p>
+If you click on it, nothing will happen!  It will only
+respond when your active browser tab is <b>Google Maps</b> and will only be useful if you have already mapped your route.
+</p>
+<h3>Saving a Route to a GPS Device</h3>
+<p>
+After you have created your route and clicked the <b>Route Rat</b> item on the Tools menu, a new tab will open in your <b>Firefox</b> browser.  The first time you visit the <b>Route Rat</b> page, the <b>Garmin Communicator</b> plugin will display a warning and ask you if you wish to allow the site to access your device.
+</p>
+<p>
+<img src="Images/garminperm.jpg"></img>
+</p>
+<p>
+After clicking yes, you will see your route data appearing in the bottom box on the <b>Route Rat</b> page, and some messages will appear in the top.  If you are using
+<b>NoScript</b> or have JavaScript disabled in the browser, you will have to enable it for this page or nothing will work.
+</p>
+<p>
+<b>Route Rat</b> will attempt to determine if your GPS device is hooked up and available for receiving the route. If it is already
+connected then you should see a message identifying the device by model number.  If it is not hooked up, a error dialog
+will appear advising you to connect it and click the Find Device button, which should now be visible on the page.  Like any
+other USB device, it will take ten seconds or so for Windows (or Mac) to realize a new device is connected and will show it
+on its list of storage drives.  When that happens, you can click on Find Device and wait for the message informing you that
+the GPS has been found.
+</p>
+<p>
+Now you must type in a name for the route in the entry field in the centre of the form.  This is the name by which you will
+find the route while using the GPS.  If you pick a name of a route that is already on the device, the GPS will append a 
+number to the name so that it will be unique.  Click the Save button and wait for the message informing you that the 
+saving is complete.
+</p>
+<p>
+You may now click Exit on the page and safely disconnect your GPS. In Windows, use the Safely Remove Hardware icon in the system tray
+at the bottom right of your Windows screen. I have no idea how to do this on a Mac, but there must be a way.
+</p>
+<h3>Using the Saved Route</h3>
+<p>
+Power on your GPS and go to the Tools page.  Don't select the Routes icon from this page; you won't find it there yet.
+You must first Import the route to make it selectable in this section.
+</p>
+<h4>Importing the Route</h4>
+<p>
+From the Tools page on the GPS, select My Data.  From the displayed list, select Import Route(s).  If there is no menu item
+for Import Route(s) in this list, your GPS model does not allow you to use routes.  If you check the link in the Installation 
+section above, you can confirm this.
+</p>
+<p>
+Find your route by the name you typed in earlier and select it.  This route will now be available in Routes section of the 
+Tools page for you to select and use.
+</p>
+<h3>News</h3>
+<dt>April 2013</dt> 
+<dd>
+	Version 1.0 released
+</dd>
+<h3>Credits</h3>
+<p>
+<b>Route Rat</b> is written and maintained by Hobie Orris and is released under the <a href="http://opensource.org/licenses/MIT">MIT License</a>.
+</p>
+<p>
+<b>Route Rat</b> includes code from the <a href="http://www.elsewhere.org/journal/gmaptogpx/" target="_blank">GMapToGPX</a>
+project written by Josh Larios, which the author has made available under the <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/" target="_blank">Creative Commons License</a>.
+</p>
+</div>
+<div class="formtitle">
+<span style="font-size:12px">
+Copyright &copy; 2013 <a class="open" href="">Hobie Orris</a>
+</span>
+</div>
+</body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.noConflict();
+		jQuery(".open").attr('href', "mai" + "lto:" + "nowadmotion@" + "gmail.com");
+	});
+</script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-284088-11']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</html>

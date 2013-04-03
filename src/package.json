@@ -1,0 +1,14 @@
+{
+    "name": "routerat", 
+	"description" : "Copy a route from Google Maps to a Garmin GPS",
+    "keywords": ["map", "garmin", "google", "gps"],
+    "license": "MIT", 
+    "author": "Hobie Orris <hobie@teksavvy.com>", 
+	"contributors": "Josh Larios <hades@elsewhere.org>",
+    "version": "1.0", 
+    "fullName": "Route Rat", 
+    "id": "jid1-gj6Yirk3s75wkA", 
+	"dependencies": ["menuitems", "addon-sdk"],
+	"icon" : "data/icon.png",
+	"homepage": "http://clients.teksavvy.com/~hobie/routerat"
+}

@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="charset" content="UTF-8" />
+	<meta name="description" content="Route Rat is a Firefox browser extension that will save a route plotted on a Google Maps map to a Garmin GPS device." />
+	<meta name="keywords" content="Firefox map route save Garmin GPS rat" />
+	<meta name="copyright" content="Copyright © 2013 Hobie Orris" />
+	<meta name="author" content="Hobie Orris" />
+	<meta name="robots" content="index, nofollow" />
+	<meta name="googlebot" content="index, nofollow" />
+	
+	<link rel="stylesheet" href="css/rat.css" type="text/css" />
+	<link rel="stylesheet" href="css/msgBoxLight.css" type="text/css" />
+	<link rel="stylesheet" href="css/reveal.css">	
+	<link rel="shortcut icon" href="favicon.ico" >
+	<link rel="icon" type="image/gif" href="animated_favicon1.gif" ><title>Route Rat &ndash; The Google Maps Route Saver</title>
+	<script type="text/javascript" src="js/prototype/prototype.js">&#160;</script>
+	<script type="text/javascript" src="js/garmin/util/Util-Broadcaster.js">&#160;</script>
+	<script type="text/javascript" src="js/garmin/util/Util-BrowserDetect.js">&#160;</script>
+	<script type="text/javascript" src="js/garmin/util/Util-DateTimeFormat.js">&#160;</script>
+	<script type="text/javascript" src="js/garmin/util/Util-PluginDetect.js">&#160;</script>
+	<script type="text/javascript" src="js/garmin/util/Util-XmlConverter.js">&#160;</script>
+	<script type="text/javascript" src="js/garmin/device/GarminObjectGenerator.js">&#160;</script>
+	<script type="text/javascript" src="js/garmin/device/GarminPluginUtils.js">&#160;</script>
+	<script type="text/javascript" src="js/garmin/device/GarminDevice.js">&#160;</script>
+	<script type="text/javascript" src="js/garmin/device/GarminDevicePlugin.js">&#160;</script>
+	<script type="text/javascript" src="js/garmin/device/GarminDeviceControl.js">&#160;</script> 
+	<script type="text/javascript" src="js/rat.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.reveal.js"></script>
+	<script type="text/javascript" src="js/jquery.msgBox.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+
+		<div style="height:0px; width:0px;">
+			<object id="GarminNetscapePlugin" type="application/vnd-garmin.mygarmin" width="0" height="0">&#160;</object>
+		</div>  
+
+		<form class="inputform" action="index.html">
+
+			<div class="formtitle" style="float:left">
+				<img src="Images/icon.png" border="0" style="vertical-align:middle">&nbsp;&nbsp;Route Rat &ndash; The Google Maps Route Saver
+				<span class="formhelp" title="Show instructions"><a class="open" data-reveal-id="rat-help"  data-animation="none" href="#" id="help">Help</a></span>
+			</div>
+			<div style="clear:both"></div>
+			<div class="inputtextbox">
+				<div class="messagebox">
+					<div id="message" class="messagearea">
+					<noscript>This isn't going to work with Javascript disabled</noscript>
+					</div>
+				</div>
+			</div>
+		
+			<div id="find-device" class="buttons" style="display:none">
+				<button id="find_button" class="activebutton">Find Device</button>
+			</div>
+		
+			<div class="input">
+				<div class="inputtext nobottomborder">
+					Route Name:
+				</div>
+				<div class="inputcontent">
+					<input type="text" length="40" maxlength="40" name="routename">
+				</div>
+			</div>
+		
+			<div class="inputtextbox nobottomborder">
+				<div class="inputtext">
+					Route Content:
+				</div>
+				<div class="inputcontent inputtextarea">
+					<textarea rows="8"  class="textarea" name="gpxdata">
+					</textarea>
+				</div>
+			</div>
+			<div class="buttons">
+				<button id="save_button" class="greybutton" type="submit">Save</button>
+				<button id="quit_button" class="activebutton" type="submit">Exit</button>
+			</div>
+		</form>
+	</div>
+	<div id="rat-help" class="reveal-modal">
+		 <img src="Images/icon.png" border="0" style="vertical-align:-30%" height="24">&nbsp;&nbsp;<span class="help-title">Route Rat Help</span>
+		 <h3>What <em>Route Rat</em> does</h3>
+		 <p>
+			Route Rat will save a file to your Garmin GPS device containing a route that you have created on a <em>Google Maps</em> map.  
+			You can then disconnect your device and take it on the road with you so that your GPS can then guide you along the route.
+		 </p>
+		 <h3>Before You Begin</h3>
+		 <p>
+		 In order to use <em>Route Rat</em>, you must first own a Garmin GPS model that allows the owner to import custom routes.
+		 To determine if your device is capable, consult <a href="http://developer.garmin.com/web-device/garmin-communicator-plugin/device-support-matrix" target="_blank" id="support">this chart</a>
+		 and look for an <b>X</b> next to your model under the ROUTES column.
+		 </p>
+		 <p>
+		 <em>Route Rat</em> requires that you use the Firefox browser on a computer running Windows or Mac OS 10.5 or later.  Firefox must also have the 
+		 free <em>Garmin Communicator</em> plugin installed in the browser (get it <a href="http://software.garmin.com/en-US/gcp.html" target="_blank" id="plugin">here</a>). 
+		 Finally, you will have to install the <em>Route Rat</em> extension for Firefox.
+		 </p>
+		 <h3>Saving Your Route</h3>
+		 <p>
+		 First, go to <a href="http://maps.google.com" target="_blank" id="maps">Google Maps</a> and create a route, such as directions
+		 from one point to another point, or series of points. When you are done, select the <em>Route Rat</em> menu item from
+		 the Firefox <em>Tools</em> menu.  The Route Rat form appears in a new tab and attempts to connect to your Garmin GPS 
+		 device.  If it is not already plugged in, do so and wait for it to start up.  Type in a name for your route and click <em>Save</em>.  That's it!
+		 </p>
+		 <h3>Accessing Your Route</h3>
+		 <p>
+		 After disconnecting your Garmin GPS from the computer you can find your route in the <em>Tools / My Data</em> page on the 
+		 device.  You need to first import it by selecting <em>Import Route</em> before you can find it under <em>Tools / Routes</em>.
+		 </p>
+		 <p>
+		 For more information about this program, please visit the <a href="http://clients.teksavvy.com/~hobie/routerat/index.html">Route Rat home page</a>.
+		 </p>
+		 <a class="close-reveal-modal">&#215;</a>
+	</div>
+</body>
+
+<script type="text/javascript">
+	$.noConflict();
+ 
+	var control;
+	
+	function	say(message)
+	{
+		jQuery('#message').append(message + "<br>");
+		jQuery('#message').scrollTop(5000);
+	}
+	
+	jQuery(document).ready(function() {
+		say("Welcome to <b><i>Route Rat</i></b><br>");
+		
+		if ((BrowserDetect.OS != "Windows" && BrowserDetect.OS != "Mac") || BrowserDetect.browser != "Firefox")
+		{
+			say("Browser is " + BrowserDetect.browser + " and  operating system is " + BrowserDetect.OS);
+			jQuery.msgBox({
+				title: "Sorry",
+				content: "Route rat depends on the Garmin Communicator plugin which only runs in Firefox on Windows",
+				type: "error",
+				buttons: [{ value: "Ok" }],
+				success: function (result) { window.close(); }
+			});	
+		}
+		else
+		{
+			say("Looking for Garmin Communicator plugin...");
+
+			try 
+			{
+				control = new Garmin.DeviceControl();
+				control.register(new RatControl());
+				if(control.isPluginInitialized()) 
+				{
+					say("Found <b>Garmin Communicator plugin version "+control.getPluginVersionString()+"</b>");
+				}
+
+				if(control.unlock( ["http://clients.teksavvy.com", "3deaf4d5bc9a8bdbd59b7216c90452c9"] )) 
+				{
+					say("The plug-in has been unlocked successfully");
+					control.findDevices();
+				} 
+				else 
+				{
+				   say("The plug-in was not unlocked successfully");
+				}
+			} 
+			catch(e) 
+			{
+			   say("<span style='color:red'>" + e.message + "</span>");
+			}
+			
+			jQuery('#save_button').prop('disabled',true);
+			
+			jQuery('#save_button').click( function(event) {
+				event.preventDefault();
+				jQuery('#save_button').prop('disabled',true);
+				newname	=  jQuery(':input[name="routename"]').val().replace(/^\s+|\s+$/g,'');
+				if (newname.length == 0)
+				{
+					jQuery.msgBox({
+						title: "Sorry",
+						content: "Please enter a name for your route",
+						type: "error",
+						buttons: [{ value: "Ok" }],
+						success: function (result) { jQuery(':input[name="routename"]').focus(); 	jQuery('#save_button').prop('disabled',false);}
+					});	
+					return;
+				}
+				gpxdata = jQuery(':input[name="gpxdata"]').val();
+				if (gpxdata.length == 0)
+				{
+					jQuery.msgBox({
+						title: "Sorry",
+						content: "There is no route data to save",
+						type: "error",
+						buttons: [{ value: "Ok" }],
+						success: function (result) { jQuery(':input[name="routename"]').focus(); 	jQuery('#save_button').prop('disabled',false);}
+					});	
+					return;
+				}
+				gpxdata = gpxdata.replace('<name>route0</name>', '<name>' + newname + '</name>')
+				gpxdata = refineGoogleGoop(gpxdata, newname);
+				jQuery(':input[name="gpxdata"]').val(gpxdata);
+				jQuery(this).prop("disabled",true).removeClass("activebutton").addClass("greybutton");
+
+				say("Saving route <b>" + newname + "</b>");
+				
+				try
+				{
+					control.writeDataToDevice(Garmin.DeviceControl.FILE_TYPES.gpx, gpxdata, newname) ;
+				}
+				catch(e)
+				{
+					jQuery.msgBox({
+						title: "Sorry",
+						content: "There was an error writing to the device",
+						type: "error",
+						buttons: [{ value: "Ok" }],
+						success: function (result) { window.close(); }
+					});	
+				}
+				jQuery('#save_button').prop('disabled',false);
+			});
+
+			jQuery('#find_button').click( function(event) {
+				event.preventDefault();
+				control.findDevices();
+			});
+			
+			jQuery('#quit_button').click( function(event) {
+				window.postMessage("routeroute-close", "*");
+
+			});
+		}
+	});
+	
+	function refineGoogleGoop(gpxdata, newname)
+	{
+		var doc_header = '<?xml version="1.0" encoding="UTF-8" ?>\n<gpx version="1.1" creator="GMapToGPX 6.4j - http://www.elsewhere.org/GMapToGPX/" xmlns="http://www.topografix.com/GPX/1/1"     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"     xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">\n';
+
+		var new_gpxdata = doc_header + '  <rte><name>' + newname + '</name>\n    <cmt>written by Route Rat - the Google Maps route saver</cmt>\n    <desc>http://clients.teksavvy.com/~hobie/routerat</desc>\n';
+
+        jQuery(gpxdata).find('rtept').each(function()
+		{                
+			var lat = jQuery(this).attr('lat');
+			var lon = jQuery(this).attr('lon');
+			var name = jQuery(this).find('name').text();
+			var cmt = jQuery(this).find('cmt').text();
+			var desc = jQuery(this).find('desc').text();
+            new_gpxdata = new_gpxdata + '    <rtept lat="' + lat + '" lon="' + lon + '">\n      <name>' + name + '</name>\n      <cmt>' + cmt + '</cmt>\n      <desc>' + desc + '</desc>\n    </rtept>\n';
+        });
+		new_gpxdata = new_gpxdata + '  </rte>\n</gpx>';
+		return new_gpxdata
+	}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-284088-11']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</html>

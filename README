@@ -1,0 +1,19 @@
+Route Rat
+---------
+
+Route Rat is a Firefox browser extension which will extract route information
+from a Google Map displayed in the active tab. This information is relayed to
+the Route Rat web page which invokes the Garmin Communicator browser plugin
+to save this route on an attached Garmin GPS device.  
+
+This extension works only on Windows and Mac as these are the only platforms
+which support the Garmin Communicator plugin.
+
+Route Rat is created by Hobie Orris <hobie@teksavvy.com> and is protected by
+the MIT software licence.
+
+Files
+-----
+
+/src - the browser extension
+/web - the web site
