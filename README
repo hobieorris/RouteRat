@@ -12,8 +12,8 @@ which support the Garmin Communicator plugin.
 Route Rat is created by Hobie Orris <hobie@teksavvy.com> and is protected by
 the MIT software licence.
 
-Files
------
+Contents
+--------
 
 /src - the browser extension
 /web - the web site
