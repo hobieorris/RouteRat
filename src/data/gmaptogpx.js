@@ -81,24 +81,20 @@ function loadXMLDoc(url)
 	if (window.XMLHttpRequest) 
 	{
         req = new XMLHttpRequest();
-		showstatusdiv('Loading...');
 		timeoutid = window.setTimeout( function(){if(callInProgress(req)){req.abort();}}, 30000);
         req.open("GET", url, false);
         req.send(null);
 		window.clearTimeout(timeoutid);
-		hidestatusdiv();
 	} 
 	else if (window.ActiveXObject) 
 	{
         req = new ActiveXObject("Microsoft.XMLHTTP");
         if (req) 
 		{
-			showstatusdiv('Loading...');
 			timeoutid = window.setTimeout( function(){if(callInProgress(req)){req.abort();}}, 30000);
             req.open("GET", url, false);
             req.send();
 			window.clearTimeout(timeoutid);
-            hidestatusdiv();
         }
     }
     
@@ -111,48 +107,15 @@ function loadXMLDoc(url)
         } 
 		else 
 		{
-			showstatusdiv('Error ' + req.status + ' getting google data: ' + req.statusText);
 			return('');
         }
     } 
 	else 
 	{
-		showstatusdiv('Error: loadXMLDoc continued with readystate: ' + req.readyState);
 		return('');
     }
 }
 
-
-function hidestatusdiv() 
-{ 
-    var statusbox;
-    if (statusbox = document.getElementById("statusbox")) 
-	{
-		document.body.removeChild(statusbox);
-    }
-}
-
-function showstatusdiv(boxcontents) 
-{
-    hidestatusdiv();
-    z=document.body.appendChild(document.createElement("div"));
-    z.id = "statusbox";
-    z.style.position = "absolute";	
-    if (self.pageYOffset != null) {	
-	z.style.top = self.pageYOffset + "px";	
-    } else if (document.documentElement.scrollTop != null) {
-	z.style.top = document.documentElement.scrollTop + "px";	
-    }
-    z.style.width = "50%";
-    z.style.left = "0px";
-    z.style.background = "#ffffff";
-    z.style.border = ".3em solid #ff0000";
-    z.style.padding = ".3em 1.3em .3em .3em";
-    z.style.zIndex = "1000";
-    
-    z.innerHTML = '<div style="position: absolute; border: 1px solid black; top: 0px; right: 0px;"><span style="padding: .3em; font-weight: bold;"><a style="text-decoration: none;" title="Close status box" href="#" onclick="javascript:hidestatusdiv();">X</a></span></div>';
-    z.innerHTML += boxcontents;
-}
 
 // This function is from Google's polyline utility.
 function decodeLine (encoded) 
@@ -230,14 +193,6 @@ function gmaptogpxdiv(dtype)
 	{
 		qtype = 2;
 		
-		/* FIXME 
-		   errorbox('<p>2008.05.07 - GMapToGPX is currently unable to process driving directions, due to a change in the underlying Google Maps code. I\'m working on it.</p>');
-		   closebox();
-		   return(0);
-		   END FIXME 
-		*/
-
-
 		// Load "polylines" up with the decoded polyline segments
 		for (i = 0; i < gpxvar.overlays.polylines.length; i++) 
 		{
@@ -332,7 +287,6 @@ function gmaptogpxdiv(dtype)
 		}
     }
     /* Yelp.com single location */
-    //    var json_biz = {"city":"Seattle","zip":"98102","review_count":6,"name":"Tacos Guaymas - CLOSED","neighborhoods":["Capitol Hill"],"photos":[],"address1":"213 Broadway East","avg_rating":4.000000,"longitude":-122.320999,"address2":null,"phone":"(206) 860-7345","state":"WA","latitude":47.620201,"id":"PidHplYWockrwJpijqUwsg","categories":{}};
     if (qtype == 0 && location.href.match(/yelp.com/i) && json_biz) 
 	{
 		qtype = 4;
@@ -365,8 +319,6 @@ function gmaptogpxdiv(dtype)
 
     if (qtype==0) 
 	{
-		errorbox('<p>There doesn\'t seem to be any extractable data on this page.</p><p>If there is, but it\'s not detected, please visit the <a href="http://www.elsewhere.org/GMapToGPX/">project homepage</a> and leave a bug report, including a link to the page you\'re on right now.</p><p><strong>Note:</strong> Google Maps mashups (that is, a page with a Google Map on it, but not at google.com) do not automatically work with this utility. If you would like to see GMapToGPX work with a Google Maps mashup site you maintain, please leave a comment on the project page.</p>');
-		closebox();
 		return(0); 
     }
 
@@ -424,7 +376,6 @@ function gmaptogpxdiv(dtype)
 		} 
 		else if (qtype == 3) 
 		{
-	//		var pl = location.href + returnPermalinkString();
 			var pl = "";
 			if (self.O && (self.O.length > 0)) 
 			{
@@ -702,72 +653,11 @@ function gmaptogpxdiv(dtype)
     } // 1
 	else 
 	{
-		errorbox('An unknown error occurred. Please leave a bug report at the <a href="http://www.elsewhere.org/GMapToGPX/">project homepage</a> and include a link to the page you\'re on right now.');
 		error = 1;
     }
     
     t+='</gpx>\n';
-//	console.log("route = " + t);
 	return t;
-}
-
-
-function displaybox(boxcontents) 
-{
-    closebox();
-    if (googlepage=document.getElementById("page")) 
-	{
-		googlepage.style.display='none';
-    }
-    var z=document.body.appendChild(document.createElement("div"));
-    z.id = "gpxbox";
-    /* I don't know about this stuff; it came from badsegue. */
-    z.style.position = "absolute";	
-    if (self.pageYOffset != null) 
-	{	
-	z.style.top = self.pageYOffset + "px";	
-    } else if (document.documentElement.scrollTop != null) 
-	{
-		z.style.top = document.documentElement.scrollTop + "px";	
-    }
-    z.style.width = "99%";
-    z.style.zIndex = "1000";
-    z.innerHTML = boxcontents;
-}
-
-function closebox() 
-{ 
-    var gpxbox = document.getElementById("gpxbox");
-    if (gpxbox != undefined) 
-	{
-		document.body.removeChild(gpxbox);
-    }
-    if (googlepage != undefined) 
-	{
-		googlepage.style.display='block';
-    }
-}
-
-
-
-function loadabout() 
-{
-    var about = '<span style="font-size: x-small;"><p><a href="http://www.elsewhere.org/GMapToGPX/">GMapToGPX</a> Extractor ' + version + '<br />';
-    about += 'A project of <a href="http://www.elsewhere.org/">Communications From Elsewhere</a></p>';
-    about += '<p>Usage:<ul>';
-    about += '<li>"Track" displays driving directions as a GPX track with one or more track segments, depending on the number of milestones in the directions.</li>';
-    about += '<li>"Route" displays driving directions as one or more GPX routes.</li>';
-    about += '<li>"Full" displays driving directions as a GPX track containing one or more track segments, each of which contains every single point on the line Google Maps draws to represent the segment. Use with caution, as long routes may produce huge results.</li>';
-    about += '<li>"Points" displays driving directions as a list of waypoints for each turn in the route. The waypoints will be in order, but this option is mainly intended for devices which can only handle waypoints, not tracks or routes. In most cases, you should use another option.</li>';
-    about += '<li>For single or multiple address searches, there are no display options. You get a list of individual waypoints.</li>';
-    about += '</ul>If you have questions or comments, please visit the <a href="http://www.elsewhere.org/GMapToGPX/">project homepage</a>.</p></span>';
-    showstatusdiv(about);
-}
-
-function errorbox(a) 
-{
-    var err = '<a href="http://www.elsewhere.org/GMapToGPX/">GMapToGPX</a> v' + version + " (ERROR)<br />" + a;
-    showstatusdiv(err);
 }
 
 
@@ -779,7 +669,6 @@ function round(a)
 
 function reload(t) 
 {
-    closebox();
     if (t==0) 
 	{
 		gmaptogpxdiv("route");
@@ -838,7 +727,6 @@ function gmaptogpxmain()
 		if (kmlurl != null &&  (kmlurl.href) && (kmlurl.href.indexOf('msid=') > 0) ) 
 		{
 			kmlurl = kmlurl + '&output=kml';
-			errorbox('This is a "My Maps" page, which means that the original KML used to create it is available. Please <a href="' + kmlurl + '">download the KML file</a> (using this link, not the one provided by Google) and convert it using <a href="http://www.gpsvisualizer.com/convert" target="_new">GPSVisualizer</a>.');
 			error = 1;
 		}
 
@@ -888,8 +776,4 @@ function gmaptogpxmain()
 		/* Default action. If it's not a route, the argument doesn't matter. */
 	  return gmaptogpxdiv("route");
 	} 
-	else 
-	{
-	  closebox();
-	}
 }
