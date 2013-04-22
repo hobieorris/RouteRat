@@ -5,7 +5,7 @@
     "license": "MIT", 
     "author": "Hobie Orris <nowadmotion@gmail.com>", 
 	"contributors": "Josh Larios <hades@elsewhere.org>",
-    "version": "1.0", 
+    "version": "1.1", 
     "fullName": "Route Rat", 
     "id": "jid1-gj6Yirk3s75wkA", 
 	"dependencies": ["menuitems", "addon-sdk"],

@@ -49,7 +49,8 @@ var google_parse = (function ()
 		qc = "\'",
 		// Call error when something is wrong.
 
-         error = function (m) {
+         error = function (m) 
+		 {
             throw {
                 name: 'SyntaxError',
                 message: m,
@@ -175,7 +176,8 @@ var google_parse = (function ()
 							uffff = uffff * 16 + hex;
 						}
 						string += String.fromCharCode(uffff);
-					} else if (typeof escapee[ch] === 'string') 
+					} 
+					else if (typeof escapee[ch] === 'string') 
 					{
 						string += escapee[ch];
 					} 
@@ -411,7 +413,8 @@ var google_parse = (function ()
                 var k, v, value = holder[key];
                 if (value && typeof value === 'object') 
 				{
-                    for (k in value) {
+                    for (k in value) 
+					{
                         if (Object.prototype.hasOwnProperty.call(value, k)) 
 						{
                             v = walk(value, k);
