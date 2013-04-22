@@ -25,18 +25,18 @@
 
 // Getting the route data
 self.port.on('sendRoute', function(message) {
-	console.log('garmin-control: message from addon: ' + message);
+//	console.log('garmin-control: message from addon: ' + message);
 	$(':input[name="gpxdata"]').html(message);
 });
 
 // Opening the tab
 self.port.on("attach", function(message) {
-	console.log("garmin-control: content attached: " + message);
+//	console.log("garmin-control: content attached: " + message);
 });
 
 // Closing the tab
 document.defaultView.addEventListener('message', function(event) {
-	console.log(event.data);
+//	console.log(event.data);
 	if (event.data == "routeroute-close")
 		self.port.emit("routeroute-close");
 }, false);

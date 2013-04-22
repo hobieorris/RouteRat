@@ -20,6 +20,8 @@
   heywhatsthat, or whatever, and then just print the damn gpx once.
 */
 
+/* butchered by Hobie Orris April 2013 */
+
 var error = 0;
 var version = '6.4j';
 var googledoc = ""; // will hold retrieved google info
@@ -746,10 +748,20 @@ function gmaptogpxmain()
 				
 				// Doing this as a regexp was causing firefox to stall out. bah.
 				var encpointblob=googledoc.slice(googledoc.indexOf('gHomeVPage='));
-				encpointblob=encpointblob.slice(0, encpointblob.indexOf('};') + 2);
-				encpointblob=encpointblob.replace(/gHomeVPage/, "gpxvar");
-				eval(encpointblob);
+
+				encpointblob=encpointblob.slice(0, encpointblob.indexOf('};') + 1);
+				encpointblob=encpointblob.replace(/gHomeVPage=/, "");
+
+//				console.log('parsing = ||' + encpointblob + '||');
 				
+				try 
+				{
+					gpxvar = google_parse(encpointblob);
+				} 
+				catch(err)
+				{
+					console.log("message:" + err.message + "  at:" + err.at + "    text:[" + err.text + "]");
+				}
 				var panel=googledoc.slice(googledoc.indexOf('id="panel_dir"'));
 				panel=panel.slice(0,panel.indexOf('Map data'));
 				gpxvar.panel = panel;
@@ -761,7 +773,7 @@ function gmaptogpxmain()
 	charset = charset ? charset : "UTF-8";
 
 	/* This bit of code was causing Safari to seriously freak out, hence the 
-	   stylesheet being included above in t, but only for Safari.  */
+	   stylesheet being included above in t, but only for Safari.
 	if (! navigator.userAgent.match(/Safari/)) 
 	{
 		var styleObject = document.getElementsByTagName("HEAD")[0].appendChild(document.createElement("link"));
@@ -770,7 +782,7 @@ function gmaptogpxmain()
 		styleObject.href="http://www.elsewhere.org/GMapToGPX/menubar.css";
 		styleObject.id="sst_css";
 	}
-
+  */
 	if (error != 1) 
 	{
 		/* Default action. If it's not a route, the argument doesn't matter. */

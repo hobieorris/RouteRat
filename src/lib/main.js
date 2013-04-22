@@ -80,7 +80,7 @@ pageMod.PageMod({
 				"*.maps.google.se",
 				"*.maps.google.tw",
 				"*.maps.google.co.uk"],
-	contentScriptFile: [data.url("jquery-1.7.1.min.js"), data.url("gmaptogpx.js"), data.url("google-control.js")],
+	contentScriptFile: [data.url("jquery-1.7.1.min.js"), data.url("google-parse.js"), data.url("gmaptogpx.js"), data.url("google-control.js")],
 	contentScriptWhen: 'ready',
 	// Send the content script a message inside onAttach
 	onAttach: function(worker) 
@@ -90,7 +90,7 @@ pageMod.PageMod({
 		// Receive the route from Google Maps
 		map_pageworker.port.on('ratEvent', function(payload) 
 		{
-			console.log("main received: " + payload);
+//			console.log("main received: " + payload);
 			gpxRoute = payload;
 			tabs.open(main_page);
 		});  

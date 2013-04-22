@@ -25,7 +25,7 @@
 
 self.port.on("getRoute", function(message) {
 	var route = gmaptogpxmain();
-	console.log("google-control: route received: " + route);
+	//console.log("google-control: route received: " + route);
 	self.port.emit("ratEvent", route);
 });
 
