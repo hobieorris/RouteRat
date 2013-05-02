@@ -26,7 +26,7 @@
 
 
 // Import the page-mod API
-var pageMod = require("page-mod");
+var google_pageMod = require("page-mod");
 // Import the self API
 var self = require("self");
 var data = self.data;
@@ -39,26 +39,7 @@ var		main_page	= "http://clients.teksavvy.com/~hobie/routerat/main.html";
 var		gpxRoute;
 var		fileName;
 var 	map_pageworker;
-
-// Install menu item in Tools
-var menuitem = require("menuitems").Menuitem({
-	id: "rat",
-	menuid: "menu_ToolsPopup",
-	label: "Route Rat",
-	onCommand: function() 
-	{
-		console.log("menu clicked");
-		map_pageworker.port.emit("getRoute", "Page matches ");
-	},
-	insertbefore: "menu_pageInfo"
-});
-
-
-// Create a page mod
-// It will run a script whenever URL is loaded
-// The script replaces the page contents with a message
-pageMod.PageMod({
-	include: ["*.maps.google.com",
+var		map_urls= ["*.maps.google.com",
 				"*.maps.google.at",
 				"*.maps.google.com.au",
 				"*.maps.google.com.ba",
@@ -81,7 +62,13 @@ pageMod.PageMod({
 				"*.maps.google.ru",
 				"*.maps.google.se",
 				"*.maps.google.tw",
-				"*.maps.google.co.uk"],
+				"*.maps.google.co.uk"];
+
+// Create a page mod
+// It will run a script whenever URL is loaded
+// The script replaces the page contents with a message
+google_pageMod.PageMod({
+	include: map_urls,
 	contentScriptFile: [data.url("jquery-1.7.1.min.js"), data.url("google-parse.js"), data.url("gmaptogpx.js"), data.url("google-control.js")],
 	contentScriptWhen: 'ready',
 	// Send the content script a message inside onAttach
@@ -120,3 +107,49 @@ tabs.on("ready", function(tab) {
 	});
 		
 });
+
+//** Help panel **//
+
+var rat_panel = require("sdk/panel").Panel({
+	height:160,
+	width:300,
+  contentURL: data.url("help.html"),
+  contentScriptFile: data.url("help.js")
+});
+
+// Send the content script a message called "show" when
+// the panel is shown.
+rat_panel.on("show", function() {
+  rat_panel.port.emit("show");
+});
+
+// Close panel when 'close' button is clicked
+rat_panel.port.on("close-help", function (text) {
+  rat_panel.hide();
+});
+
+//** Menu item **//
+
+// Install menu item in Tools
+var menuitem = require("menuitems").Menuitem({
+	id: "rat",
+	menuid: "menu_ToolsPopup",
+	label: "Route Rat",
+	onCommand: function() 
+	{
+		var url = tabs.activeTab.url;
+
+		var pattern = /maps.google/g;
+		
+		// Show dialog if used when not in Google Maps
+		if (pattern.test(url) == false)
+		{
+			console.log("pattern match fails");
+			rat_panel.show();
+		}
+		map_pageworker.port.emit("getRoute", "Page matches ");
+	},
+	insertbefore: "menu_pageInfo"
+});
+
+
