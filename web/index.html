@@ -20,6 +20,14 @@
 	<title>Route Rat &ndash; The Google Maps Route Saver</title>
 </head>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <div class="formtitle">
 <img src="Images/icon.png" border="0" style="vertical-align:middle;margin-left:30px">&nbsp;&nbsp;Route Rat &ndash; The Google Maps Route Saver
 <span class="formhelp" title="feedback">by <a class="open" href="">Hobie Orris</a></span></div>
@@ -76,8 +84,8 @@ Under the Tools menu, you will find a new menu item, <b>Route Rat</b>.
 <img src="Images/menu.jpg"></img>
 </p>
 <p>
-If you click on it, nothing will happen!  It will only
-respond when your active browser tab is <b>Google Maps</b> and will only be useful if you have already mapped your route.
+If you click on it, you will see a help dialog box directing you to this page.  The addon will perform its function only
+ when your active browser tab is <b>Google Maps</b> and will only be useful if you have already mapped your route.
 </p>
 <h3>Saving a Route to a GPS Device</h3>
 <p>
@@ -124,9 +132,16 @@ Find your route by the name you typed in earlier and select it.  This route will
 Tools page for you to select and use.
 </p>
 <h3>News</h3>
-<dt>April 2013</dt> 
+<dt>April 2013 - Version 1.0 released</dt> 
 <dd>
-	Version 1.0 released
+</dd>
+<br><dt>April 2013	 - Version 1.1 released</dt> 
+<dd>
+replaced insecure code
+</dd>
+<br><dt>May 2013	 - Version 1.2 released</dt> 
+<dd>
+Added a help panel which is shown on non-Google Maps pages
 </dd>
 <h3>Credits</h3>
 <p>
@@ -137,10 +152,13 @@ Tools page for you to select and use.
 project written by Josh Larios, which the author has made available under the <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/" target="_blank">Creative Commons License</a>.
 </p>
 </div>
-<div class="formtitle">
-<span style="font-size:12px">
-Copyright &copy; 2013 <a class="open" href="">Hobie Orris</a>
-</span>
+<div class="formtitle" style="height:30px">
+	<div  style="font-size:12px;float:left">
+	Copyright &copy; 2013 <a class="open" href="">Hobie Orris</a>
+	</div>
+	<div  style="font-size:12px;float:right">
+	<div class="fb-like" data-href="http://clients.teksavvy.com/~hobie/routerat" data-send="false" data-width="225" data-show-faces="false" data-font="tahoma"></div>
+	</div>
 </div>
 </body>
 <script type="text/javascript">
