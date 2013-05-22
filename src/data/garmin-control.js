@@ -28,7 +28,7 @@
 // Getting the route data
 self.port.on('sendRoute', function(message) {
 //	console.log('garmin-control: message from addon: ' + message);
-	$(':input[name="gpxdata"]').html(message);
+	$(':input[name="gpxdata"]').text(message);
 });
 
 // Opening the tab

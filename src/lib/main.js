@@ -66,7 +66,6 @@ var		map_urls= ["*.maps.google.com",
 
 // Create a page mod
 // It will run a script whenever URL is loaded
-// The script replaces the page contents with a message
 google_pageMod.PageMod({
 	include: map_urls,
 	contentScriptFile: [data.url("jquery-1.7.1.min.js"), data.url("google-parse.js"), data.url("gmaptogpx.js"), data.url("google-control.js")],
@@ -79,7 +78,6 @@ google_pageMod.PageMod({
 		// Receive the route from Google Maps
 		map_pageworker.port.on('ratEvent', function(payload) 
 		{
-//			console.log("main received: " + payload);
 			gpxRoute = payload;
 			tabs.open(main_page);
 		});  
@@ -102,7 +100,6 @@ tabs.on("ready", function(tab) {
 	});
 	// 'Exit' button clicked
 	tab_worker.port.on("routeroute-close", function() {
-		console.log("close tab");
 		tab_worker.tab.close();
 	});
 		
