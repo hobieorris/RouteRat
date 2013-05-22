@@ -108,7 +108,7 @@ tabs.on("ready", function(tab) {
 //** Help panel **//
 
 var rat_panel = require("sdk/panel").Panel({
-	height:160,
+	height:200,
 	width:300,
   contentURL: data.url("help.html"),
   contentScriptFile: data.url("help.js")
